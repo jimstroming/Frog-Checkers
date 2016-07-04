@@ -1,0 +1,3 @@
+title=Roadkill Frog Checkers
+author=Lee and Jim Stroming
+orientation=portrait
