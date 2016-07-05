@@ -1,4 +1,4 @@
 #adb push chess.py /storage/emulated/0/kivy/roadkillfrog/.
 adb push roadkillfrog.kv /storage/emulated/0/kivy/roadkillfrog/.
 adb push main.py /storage/emulated/0/kivy/roadkillfrog/.
-
+adb push lilypad.png /storage/emulated/0/kivy/roadkillfrog/.
