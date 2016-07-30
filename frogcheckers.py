@@ -1,5 +1,6 @@
 import pdb
 import random
+from copy import deepcopy
 
 class CheckersEngine(object):
     # red on bottom, black on top
@@ -84,6 +85,8 @@ class CheckersEngine(object):
             to the end and gets promoted to a king, that ends the jump chain.
         """
         
+        resultjumplist = []  # this is the list we are going to return
+        
         # get the current jump position
         currentpos = jumplist[-1]
         currentpiece = board[currentpos[1]][currentpos[0]]
@@ -121,12 +124,27 @@ class CheckersEngine(object):
             # we have found a legal jump
     
             # create a board to account for the jump
+            newboard = self.fastcopy(board)
             # update the board to account for the jump
+            self.updateboardinplace(currentpos[0], currentpos[1], movelist, newboard)
             # create a copy of the jump list
+            newjumplist = deepcopy(jumplist)
             # append the new jump to the list
-            # recursively call addtojumplist
-        
-        return           
+            newjumplist.append([jumpx,jumpy])
+            # check if the piece was promoted to king
+            currentpiece = newboard[jumpy][jumpx]
+            if currentpiece[1] == 'K':
+                resultjumplist.append(newjumplist)
+            else:
+                # if not, recursively call addtojumplist
+                outputjumplist = self.addtojumplist(newjumplist,color,newboard)
+                # append each list in the output to the resultjumplist
+                for eachlist in outputjumplist:
+                    resultjumplist.append(eachlist)
+        # return the resultjumplist
+        if resultjumplist == []:
+            resultjumplist.append(jumplist)
+        return resultjumplist          
                          
                          
 if __name__ == '__main__':
