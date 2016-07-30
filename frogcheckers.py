@@ -17,8 +17,10 @@ class CheckersEngine(object):
                      blnkrow4, blnkrow5, bpawnrow, lastrow]
         topcarx    = 0   # the top car starts on the left border
         topcary    = 4
+        topcarwidth = 2
         bottomcarx = 6   # the bottom car stars on the right border
         bottomcary = 3
+        bottomcarwidth = 2
 
     def printboard(self,board):
         for x in range(0,8):
