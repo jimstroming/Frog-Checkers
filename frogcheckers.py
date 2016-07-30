@@ -15,7 +15,10 @@ class CheckersEngine(object):
         lastrow  = ['00','BC','00','BC','00','BC','00','BC'] # BC is a black checker
         self.board = [firstrow, wpawnrow, blnkrow2, blnkrow3,
                      blnkrow4, blnkrow5, bpawnrow, lastrow]
-                     
+        topcarx    = 0   # the top car starts on the left border
+        topcary    = 4
+        bottomcarx = 6   # the bottom car stars on the right border
+        bottomcary = 3
 
     def printboard(self,board):
         for x in range(0,8):
