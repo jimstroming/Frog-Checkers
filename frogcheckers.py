@@ -2,7 +2,7 @@ import pdb
 import random
 
 class CheckersEngine(object):
-    # white on bottom, black on top
+    # red on bottom, black on top
    
     def __init__(self):
         firstrow = ['RC','--','RC','--','RC','--','RC','--'] # RC is a red checker
@@ -21,6 +21,13 @@ class CheckersEngine(object):
         bottomcarx = 6   # the bottom car stars on the right border
         bottomcary = 3
         bottomcarwidth = 2
+        
+        kingjumpoffsetlist     = [[-2,-2],[-2,2],[2,-2],[2,2]]
+        kingcaptureoffsetlist  = [[-1,-1],[-1,1],[1,-1],[1,1]]
+        redoffsetlist          = [[-2,2], [2,2]]
+        redcaptureoffetlist    = [[-1,1], [1,1]]
+        blackoffsetlist        = [[-2,-2],[2,-2]]
+        blackcaptureoffsetlist = [[-1,-1],[1,-1]]
 
     def printboard(self,board):
         for x in range(0,8):
@@ -61,7 +68,65 @@ class CheckersEngine(object):
             piece = 'RK'
         if currenty == 0 and piece[0] == 'B':
             pice = 'BK'
-        board[currenty][currentx] = piece                     
+        board[currenty][currentx] = piece        
+        
+    def createjumplist(self,color):
+        # loop through all the checkers of the given color
+        
+        # 
+        return      
+        
+    def addtojumplist(self,jumplist,color,board):
+        """ Recursive routine to take the current jump list
+            and change it into a complete jump list
+            
+            TODO  One thing I still have to do is, if the piece jumps all the way
+            to the end and gets promoted to a king, that ends the jump chain.
+        """
+        
+        # get the current jump position
+        currentpos = jumplist[-1]
+        currentpiece = board[currentpos[1]][currentpos[0]]
+        
+        loopsize = 2
+        if currentpiece[0] == 'R':
+            jumpoffsetlist = redjumpoffsetlist
+            captureoffsetlist = redcaptureoffsetlist
+        else:
+            jumpoffsetlist = blackjumpoffsetlist
+            captureoffsetlist = blackcaptureoffsetlist
+        
+        if currentpiece[1] == 'K':
+            loopsize = 4
+            jumpoffsetlist = kingjumpoffsetlist
+            captureoffsetlist = kingcaptureoffsetlist
+        
+        # loop through all the possible jumps from the current position
+        for i in range(0,loopsize):
+            # check if the jump destination is open
+            jumpoffset = jumpoffsetlist[i]
+            jumpx = currentpos+jumpoffset[0]
+            jumpy = currentpos+jumpoffset[1]
+            if jumpx < 0 or jumpx > 7: continue
+            if jumpy < 0 or jumpx > 7: continue     
+            if board[jumpy][jumpx] != '00': continue   
+            # check if there is an opposing checker to capture
+            captureoffset = captureoffsetlist[i]
+            capturex = currentpos+captureoffset[0]
+            capturey = currentpos+captureoffset[0]
+            capturepiece = board[capturey][capturex] 
+            if capturepiece == '00': continue
+            if capturepiece[0] == color: continue
+        
+            # we have found a legal jump
+    
+            # create a board to account for the jump
+            # update the board to account for the jump
+            # create a copy of the jump list
+            # append the new jump to the list
+            # recursively call addtojumplist
+        
+        return           
                          
                          
 if __name__ == '__main__':
