@@ -5,14 +5,14 @@ class CheckersEngine(object):
     # white on bottom, black on top
    
     def __init__(self):
-        firstrow = ['RC','00','RC','00','RC','00','RC','00'] # RC is a red checker
-        wpawnrow = ['00','RC','00','RC','00','RC','00','RC'] # RK is a red king
-        blnkrow2 = ['RC','00','RC','00','RC','00','RC','00']
-        blnkrow3 = ['00','00','00','00','00','00','00','00']
-        blnkrow4 = ['00','00','00','00','00','00','00','00']
-        blnkrow5 = ['00','BC','00','BC','00','BC','00','BC']
-        bpawnrow = ['BC','00','BC','00','BC','00','BC','00'] # BK is a black king
-        lastrow  = ['00','BC','00','BC','00','BC','00','BC'] # BC is a black checker
+        firstrow = ['RC','--','RC','--','RC','--','RC','--'] # RC is a red checker
+        wpawnrow = ['--','RC','--','--','--','RC','--','RC'] # RK is a red king
+        blnkrow2 = ['RC','--','RC','--','RC','--','RC','--']
+        blnkrow3 = ['--','00','--','00','--','00','--','00']
+        blnkrow4 = ['00','--','00','--','00','--','00','--']
+        blnkrow5 = ['--','BC','--','BC','--','BC','--','BC']
+        bpawnrow = ['BC','--','BC','--','BC','--','BC','--'] # BK is a black king
+        lastrow  = ['--','BC','--','BC','--','BC','--','BC'] # BC is a black checker
         self.board = [firstrow, wpawnrow, blnkrow2, blnkrow3,
                      blnkrow4, blnkrow5, bpawnrow, lastrow]
         topcarx    = 0   # the top car starts on the left border
@@ -38,11 +38,34 @@ class CheckersEngine(object):
                     [b[5][0],b[5][1],b[5][2],b[5][3],b[5][4],b[5][5],b[5][6],b[5][7]],
                     [b[6][0],b[6][1],b[6][2],b[6][3],b[6][4],b[6][5],b[6][6],b[6][7]],
                     [b[7][0],b[7][1],b[7][2],b[7][3],b[7][4],b[7][5],b[7][6],b[7][7]]]
+                           
+    def updateboardinplace(self,sourcex, sourcey, movelist, board):          
+        currentx = sourcex
+        currenty = sourcey
+        # for each move in the movelist
+        for move in movelist: 
+            piece = board[currenty][currentx]  
+            # check for capture
+            capturex = (move[0]+currentx)/2
+            capturey = (move[1]+currenty)/2     
+            board[captureyy][capturex] = '00' 
+            # make the move
+            board[currenty][currentx] = '00'
+            board[move[1]][move[0]] = piece
+            currentx = move[0]
+            currenty = move[1]
         
+        # after the last move, see if we need to promote the checker to a king
+        if currenty == 7 and piece[0] == 'R':
+            piece = 'RK'
+        if currenty == 0 and piece[0] == 'B':
+            pice = 'BK'
+        board[currenty][currentx] = piece                     
+                         
                          
 if __name__ == '__main__':
     import time
     import cProfile
     cb = CheckersEngine()  
-
-    pdb.set_trace()
+    cb.printboard(cb.board)
+    #pdb.set_trace()
