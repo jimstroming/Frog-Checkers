@@ -6,7 +6,7 @@ class CheckersEngine(object):
    
     def __init__(self):
         firstrow = ['RC','--','RC','--','RC','--','RC','--'] # RC is a red checker
-        wpawnrow = ['--','RC','--','--','--','RC','--','RC'] # RK is a red king
+        wpawnrow = ['--','RC','--','RC','--','RC','--','RC'] # RK is a red king
         blnkrow2 = ['RC','--','RC','--','RC','--','RC','--']
         blnkrow3 = ['--','00','--','00','--','00','--','00']
         blnkrow4 = ['00','--','00','--','00','--','00','--']
@@ -46,9 +46,10 @@ class CheckersEngine(object):
         for move in movelist: 
             piece = board[currenty][currentx]  
             # check for capture
-            capturex = (move[0]+currentx)/2
-            capturey = (move[1]+currenty)/2     
-            board[captureyy][capturex] = '00' 
+            if abs(move[0]-currentx) == 2:
+                capturex = (move[0]+currentx)/2
+                capturey = (move[1]+currenty)/2     
+                board[capturey][capturex] = '00' 
             # make the move
             board[currenty][currentx] = '00'
             board[move[1]][move[0]] = piece
@@ -68,4 +69,13 @@ if __name__ == '__main__':
     import cProfile
     cb = CheckersEngine()  
     cb.printboard(cb.board)
+    print "move"
+    cb.updateboardinplace(2,2,[[3,3]],cb.board)
+    cb.printboard(cb.board)
+    print "move"
+    cb.updateboardinplace(1,5,[[2,4]],cb.board)
+    cb.printboard(cb.board)
+    print "move"
+    cb.updateboardinplace(3,3,[[1,5]],cb.board)
+    cb.printboard(cb.board)    
     #pdb.set_trace()
