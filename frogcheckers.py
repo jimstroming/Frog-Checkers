@@ -13,6 +13,7 @@ class CheckersEngine(object):
         blnkrow4 = ['00','--','00','--','00','--','00','--']
         blnkrow5 = ['--','BC','--','BC','--','BC','--','BC']
         bpawnrow = ['BC','--','BC','--','BC','--','BC','--'] # BK is a black king
+        #lastrow  = ['--','00','--','00','--','00','--','00']        
         lastrow  = ['--','BC','--','BC','--','BC','--','BC'] # BC is a black checker
         self.board = [firstrow, wpawnrow, blnkrow2, blnkrow3,
                      blnkrow4, blnkrow5, bpawnrow, lastrow]
@@ -74,6 +75,10 @@ class CheckersEngine(object):
         board[currenty][currentx] = piece        
         
     def createjumplist(self,color):
+        """ Function to create all the legal jumps
+            If there are any legal jumps, then 
+            the only legal move is one of these jumps. 
+        """
         # loop through all the checkers of the given color
         
         # 
@@ -146,8 +151,7 @@ class CheckersEngine(object):
                 # if not, recursively call addtojumplist
                 outputjumplist = self.addtojumplist(newjumplist,color,newboard)
                 # append each list in the output to the resultjumplist
-                for eachlist in outputjumplist:
-                    resultjumplist.append(eachlist)
+                resultjumplist += outputjumplist
         # return the resultjumplist
         if resultjumplist == []:
             resultjumplist.append(jumplist)
