@@ -26,8 +26,8 @@ class RoadkillFrogRoot(BoxLayout):
         self.destx = -1
         self.desty = -1     
         self.resetbothmistakecounts()
+        self.updateboardui()
         """
-        #self.updateboardui()
         for x in range(0,8):
             for y in range(0,8):
                #self.resetsquarebackground(x,y)
@@ -50,10 +50,34 @@ class RoadkillFrogRoot(BoxLayout):
             #self.cpumove(0)
         """
 
-
     def createcheckersengine(self):
         """ Creates the checkers engine.  Maintains the game state and enforces move rules."""
         self.checkersengine = CheckersEngine() 
+        
+    def updateboardui(self): 
+        """ Update the display to match the engine."""
+        for x in range(0,8):
+            for y in range(0,8):
+                print "DAGWOOD20"
+                stringid = "but"+str(x)+str(y)
+                colorpiece = self.checkersengine.getpiece(x,y)
+                buttonid = "but"+str(x)+str(y)
+                print "DAGWOOD21"
+                if self.blind == 0 and colorpiece[0] != '0':
+                    if colorpiece[0] == 'B':
+                        print "DAGWOOD22a"
+                        self.ids[buttonid].color = self.pureblack
+                        print "DAGWOOD23a"
+                    else:
+                        print "DAGWOOD22b"
+                        print "DAGWOOD",buttonid
+                        print "DAGWOOD",self.purewhite
+                        self.ids[buttonid].color = self.purewhite
+                        print "DAGWOOD23b"
+                    print "DAGWOOD24"
+                    self.ids[buttonid].text = colorpiece[1]
+                else:
+                    self.ids[buttonid].text = ''        
 
     def setallfontsonecolor(self, color):
         """ Sets the button and counts to a color to alert the player something has happened."""
