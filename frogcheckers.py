@@ -102,7 +102,10 @@ class CheckersEngine(object):
         actualoffset = [destpos[0]-currentpos[0],destpos[1]-currentpos[1]]
         if not actualoffset in jumpoffsetlist:  return False
         if self.board[destpos[1]][destpos[0]] == '00':  return True
-        return False     
+        return False    
+        
+    def makevalidmove(self,move):
+        self.updateboardinplace(move,self.board)  
         
     def createjumplist(self,color,board):
         """ Function to create all the legal jumps
@@ -211,17 +214,17 @@ if __name__ == '__main__':
     print "move"
     print cb.checkifvalidmove('R', [[2,2],[10,3]])
     print cb.checkifvalidmove('R', [[2,2],[3,3]])
-    cb.updateboardinplace([[2,2],[3,3]],cb.board)
+    cb.makevalidmove([[2,2],[3,3]])
     cb.printboard(cb.board)
     print "move"
-    cb.updateboardinplace([[1,5],[2,4]],cb.board)
+    cb.makevalidmove([[1,5],[2,4]])
     cb.printboard(cb.board)
     print "move"
-    cb.updateboardinplace([[5,5],[4,4]],cb.board)
+    cb.makevalidmove([[5,5],[4,4]])
     print "move"
-    cb.updateboardinplace([[7,5],[6,4]],cb.board)
+    cb.makevalidmove([[7,5],[6,4]])
     print "move"
-    cb.updateboardinplace([[6,4],[5,3]],cb.board)
+    cb.makevalidmove([[6,4],[5,3]])
     cb.printboard(cb.board)
     #jumplist = [[3,3]]
     #newjumplist = cb.addtojumplist(jumplist,'R',cb.board)
