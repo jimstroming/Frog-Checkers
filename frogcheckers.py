@@ -165,6 +165,9 @@ if __name__ == '__main__':
     print "move"
     cb.updateboardinplace(1,5,[[2,4]],cb.board)
     cb.printboard(cb.board)
+    print "move"
+    cb.updateboardinplace(5,5,[[4,4]],cb.board)
+    cb.printboard(cb.board)
     #print "move"
     #cb.updateboardinplace(3,3,[[1,5]],cb.board)
     #cb.printboard(cb.board)    
