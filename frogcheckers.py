@@ -16,19 +16,19 @@ class CheckersEngine(object):
         lastrow  = ['--','BC','--','BC','--','BC','--','BC'] # BC is a black checker
         self.board = [firstrow, wpawnrow, blnkrow2, blnkrow3,
                      blnkrow4, blnkrow5, bpawnrow, lastrow]
-        topcarx    = 0   # the top car starts on the left border
-        topcary    = 4
-        topcarwidth = 2
-        bottomcarx = 6   # the bottom car stars on the right border
-        bottomcary = 3
-        bottomcarwidth = 2
+        self.topcarx    = 0   # the top car starts on the left border
+        self.topcary    = 4
+        self.topcarwidth = 2
+        self.bottomcarx = 6   # the bottom car stars on the right border
+        self.bottomcary = 3
+        self.bottomcarwidth = 2
         
-        kingjumpoffsetlist     = [[-2,-2],[-2,2],[2,-2],[2,2]]
-        kingcaptureoffsetlist  = [[-1,-1],[-1,1],[1,-1],[1,1]]
-        redoffsetlist          = [[-2,2], [2,2]]
-        redcaptureoffetlist    = [[-1,1], [1,1]]
-        blackoffsetlist        = [[-2,-2],[2,-2]]
-        blackcaptureoffsetlist = [[-1,-1],[1,-1]]
+        self.kingjumpoffsetlist          = [[-2,-2],[-2,2],[2,-2],[2,2]]
+        self.kingcaptureoffsetlist       = [[-1,-1],[-1,1],[1,-1],[1,1]]
+        self.redjumpoffsetlist           = [[-2,2], [2,2]]
+        self.redcaptureoffsetlist        = [[-1,1], [1,1]]
+        self.blackjumpoffsetlist         = [[-2,-2],[2,-2]]
+        self.blackcaptureoffsetlist      = [[-1,-1],[1,-1]]
 
     def printboard(self,board):
         for x in range(0,8):
@@ -89,34 +89,38 @@ class CheckersEngine(object):
         
         # get the current jump position
         currentpos = jumplist[-1]
+        #pdb.set_trace()
         currentpiece = board[currentpos[1]][currentpos[0]]
         
         loopsize = 2
         if currentpiece[0] == 'R':
-            jumpoffsetlist = redjumpoffsetlist
-            captureoffsetlist = redcaptureoffsetlist
+            #pdb.set_trace()
+            jumpoffsetlist    = self.redjumpoffsetlist
+            captureoffsetlist = self.redcaptureoffsetlist
         else:
-            jumpoffsetlist = blackjumpoffsetlist
-            captureoffsetlist = blackcaptureoffsetlist
+            jumpoffsetlist    = self.blackjumpoffsetlist
+            captureoffsetlist = self.blackcaptureoffsetlist
         
         if currentpiece[1] == 'K':
             loopsize = 4
-            jumpoffsetlist = kingjumpoffsetlist
-            captureoffsetlist = kingcaptureoffsetlist
+            jumpoffsetlist    = self.kingjumpoffsetlist
+            captureoffsetlist = self.kingcaptureoffsetlist
         
         # loop through all the possible jumps from the current position
         for i in range(0,loopsize):
             # check if the jump destination is open
+            print i
+            print jumpoffsetlist
             jumpoffset = jumpoffsetlist[i]
-            jumpx = currentpos+jumpoffset[0]
-            jumpy = currentpos+jumpoffset[1]
+            jumpx = currentpos[0]+jumpoffset[0]
+            jumpy = currentpos[1]+jumpoffset[1]
             if jumpx < 0 or jumpx > 7: continue
             if jumpy < 0 or jumpx > 7: continue     
             if board[jumpy][jumpx] != '00': continue   
             # check if there is an opposing checker to capture
             captureoffset = captureoffsetlist[i]
-            capturex = currentpos+captureoffset[0]
-            capturey = currentpos+captureoffset[0]
+            capturex = currentpos[0]+captureoffset[0]
+            capturey = currentpos[1]+captureoffset[1]
             capturepiece = board[capturey][capturex] 
             if capturepiece == '00': continue
             if capturepiece[0] == color: continue
@@ -125,6 +129,9 @@ class CheckersEngine(object):
     
             # create a board to account for the jump
             newboard = self.fastcopy(board)
+            # create the current move
+            movelist = [currentpos]
+            movelist.append([jumpx,jumpy])
             # update the board to account for the jump
             self.updateboardinplace(currentpos[0], currentpos[1], movelist, newboard)
             # create a copy of the jump list
@@ -158,7 +165,10 @@ if __name__ == '__main__':
     print "move"
     cb.updateboardinplace(1,5,[[2,4]],cb.board)
     cb.printboard(cb.board)
-    print "move"
-    cb.updateboardinplace(3,3,[[1,5]],cb.board)
-    cb.printboard(cb.board)    
+    #print "move"
+    #cb.updateboardinplace(3,3,[[1,5]],cb.board)
+    #cb.printboard(cb.board)    
     #pdb.set_trace()
+    jumplist = [[3,3]]
+    newjumplist = cb.addtojumplist(jumplist,'R',cb.board)
+    pdb.set_trace()
