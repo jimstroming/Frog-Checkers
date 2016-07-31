@@ -19,14 +19,14 @@ class RoadkillFrogRoot(BoxLayout):
         self.pureblack   = ( 0,   0,  0, 1)
         self.ids["messageW"].text = 'Your Move'
         self.ids["messageB"].text = 'Black Move'
-        """
-        #self.setcancelandmovebuttons('cancel','move')
-        self.blind = 1    # 1 means blind.  0 means show the pieces  
+        self.setcancelandmovebuttons('cancel','move')
+        self.blind = 0    # 1 means blind.  0 means show the pieces  
         self.sourcex = -1  # set the source and destination to none
         self.sourcey = -1 
         self.destx = -1
         self.desty = -1     
-        #self.resetbothmistakecounts()
+        self.resetbothmistakecounts()
+        """
         #self.updateboardui()
         for x in range(0,8):
             for y in range(0,8):
@@ -79,8 +79,45 @@ class RoadkillFrogRoot(BoxLayout):
         self.ids['cancelW'].color = self.darkgray
         self.ids['cancelB'].color = self.lightgray
 
-
+    def setcancelandmovebuttons(self,canceltext,movetext):
+        self.ids["moveB"].text = movetext
+        self.ids["cancelB"].text = canceltext
+        self.ids["moveW"].text = movetext
+        self.ids["cancelW"].text = canceltext
+         
         
+    def resetbothmistakecounts(self):    
+        labelidblack = "mistakecountB"
+        labelidwhite = "mistakecountW"
+        self.ids[labelidblack].text = str(0)
+        self.ids[labelidwhite].text = str(0)
+        
+    def increasemistakecount(self,color):
+        """ Increment the mistake count of the active player."""
+        # read the mistake count and convert to a number
+        labelid = "mistakecount"+color 
+        mistakecount = int(self.ids[labelid].text) 
+        mistakecount += 1 # increment
+        self.ids[labelid].text = str(mistakecount) # convert to a string and update
+        
+    def updatebothmessages(self, message, colortodraw):
+        """" Update the on screen message to both players."""
+        colorvalue = self.purewhite
+        if colortodraw == 'B' : colorvalue = self.pureblack
+        self.ids['messageW'].text = message
+        self.ids['messageB'].text = message
+        self.ids['messageW'].color = colorvalue
+        self.ids['messageB'].color = colorvalue
+        
+    def updatemessage(self,message,colortoupdate,colortodraw):
+        """ Update the on screen message of one of the players."""
+        labelid = "message"+colortoupdate 
+        self.ids[labelid].text = message
+        if colortodraw == 'W':
+            self.ids[labelid].color = self.purewhite
+        else:
+            self.ids[labelid].color = self.pureblack
+            
         
     def movebuttonpress(self, color):
         """ Process a press on the move button."""
