@@ -85,11 +85,14 @@ class CheckersEngine(object):
             for x in range(0,8):
                 currentpiece = board[y][x]
                 if currentpiece[0] == color:
-                    print x,y
+                    #print x,y
                     # find the possible jumps from this piece
                     jumplist = self.addtojumplist([[x,y]],color,board)
-                    if len(jumplist) != 1:
+                    #print jumplist
+                    #print len(jumplist[0])
+                    if len(jumplist[0]) != 1:
                         outputjumplist += jumplist
+                        #print outputjumplist
          
         return outputjumplist     
         
@@ -183,6 +186,10 @@ if __name__ == '__main__':
     cb.printboard(cb.board)
     print "move"
     cb.updateboardinplace([[5,5],[4,4]],cb.board)
+    print "move"
+    cb.updateboardinplace([[7,5],[6,4]],cb.board)
+    print "move"
+    cb.updateboardinplace([[6,4],[5,3]],cb.board)
     cb.printboard(cb.board)
     #jumplist = [[3,3]]
     #newjumplist = cb.addtojumplist(jumplist,'R',cb.board)
