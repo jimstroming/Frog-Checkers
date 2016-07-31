@@ -74,15 +74,24 @@ class CheckersEngine(object):
             pice = 'BK'
         board[currenty][currentx] = piece        
         
-    def createjumplist(self,color):
+    def createjumplist(self,color,board):
         """ Function to create all the legal jumps
             If there are any legal jumps, then 
             the only legal move is one of these jumps. 
         """
+        outputjumplist = []
         # loop through all the checkers of the given color
-        
-        # 
-        return      
+        for y in range(0,8):
+            for x in range(0,8):
+                currentpiece = board[y][x]
+                if currentpiece[0] == color:
+                    print x,y
+                    # find the possible jumps from this piece
+                    jumplist = self.addtojumplist([[x,y]],color,board)
+                    if len(jumplist) != 1:
+                        outputjumplist += jumplist
+         
+        return outputjumplist     
         
     def addtojumplist(self,jumplist,color,board):
         """ Recursive routine to take the current jump list
@@ -175,7 +184,9 @@ if __name__ == '__main__':
     print "move"
     cb.updateboardinplace([[5,5],[4,4]],cb.board)
     cb.printboard(cb.board)
-    jumplist = [[3,3]]
-    newjumplist = cb.addtojumplist(jumplist,'R',cb.board)
-    print newjumplist
+    #jumplist = [[3,3]]
+    #newjumplist = cb.addtojumplist(jumplist,'R',cb.board)
+    #print newjumplist
+    totaljumplist = cb.createjumplist('R',cb.board)
+    print totaljumplist
     #pdb.set_trace()
