@@ -11,7 +11,6 @@ class RoadkillFrogRoot(BoxLayout):
         print "DAGWOOD10"        
         self.createcheckersengine()
         print "DAGWOOD11"
-        """
         self.purewhite   = ( 1,   1,  1, 1)
         self.brightwhite = (0.9,0.9,0.9, 1)
         self.lightgray   = (0.6,0.6,0.6, 1)
@@ -20,6 +19,7 @@ class RoadkillFrogRoot(BoxLayout):
         self.pureblack   = ( 0,   0,  0, 1)
         self.ids["messageW"].text = 'Your Move'
         self.ids["messageB"].text = 'Black Move'
+        """
         #self.setcancelandmovebuttons('cancel','move')
         self.blind = 1    # 1 means blind.  0 means show the pieces  
         self.sourcex = -1  # set the source and destination to none
@@ -54,6 +54,32 @@ class RoadkillFrogRoot(BoxLayout):
     def createcheckersengine(self):
         """ Creates the checkers engine.  Maintains the game state and enforces move rules."""
         self.checkersengine = CheckersEngine() 
+
+    def setallfontsonecolor(self, color):
+        """ Sets the button and counts to a color to alert the player something has happened."""
+        self.ids['clockW'].color = color
+        self.ids['clockB'].color = color
+        self.ids['mistakecountW'].color = color                
+        self.ids['mistakecountB'].color = color                
+        self.ids['moveW'].color = color
+        self.ids['moveB'].color = color
+        self.ids['cancelW'].color = color
+        self.ids['cancelB'].color = color
+        
+    def restoreallfonts(self):
+        """ Restores the button and counts to their original color."""
+        almostblack = (0.2,0.2,0.2,1)
+        almostwhite = (0.8,0.8,0.8,1)
+        self.ids['clockW'].color = almostwhite
+        self.ids['clockB'].color = almostblack
+        self.ids['mistakecountW'].color = almostwhite                
+        self.ids['mistakecountB'].color = almostblack              
+        self.ids['moveW'].color = self.darkgray
+        self.ids['moveB'].color = self.lightgray
+        self.ids['cancelW'].color = self.darkgray
+        self.ids['cancelB'].color = self.lightgray
+
+
         
         
     def movebuttonpress(self, color):
