@@ -81,10 +81,8 @@ class CheckersEngine(object):
         
     def addtojumplist(self,jumplist,color,board):
         """ Recursive routine to take the current jump list
-            and change it into a complete jump list
-            
-            TODO  One thing I still have to do is, if the piece jumps all the way
-            to the end and gets promoted to a king, that ends the jump chain.
+            and follow it through to multiple jumps 
+            This can only be used on a single checker.
         """
         
         resultjumplist = []  # this is the list we are going to return
@@ -111,8 +109,8 @@ class CheckersEngine(object):
         # loop through all the possible jumps from the current position
         for i in range(0,loopsize):
             # check if the jump destination is open
-            print i
-            print jumpoffsetlist
+            #print i
+            #print jumpoffsetlist
             jumpoffset = jumpoffsetlist[i]
             jumpx = currentpos[0]+jumpoffset[0]
             jumpy = currentpos[1]+jumpoffset[1]
@@ -161,6 +159,9 @@ if __name__ == '__main__':
     import cProfile
     cb = CheckersEngine()  
     cb.printboard(cb.board)
+    jumplist = [[1,1]]
+    newjumplist = cb.addtojumplist(jumplist,'R',cb.board)
+    print newjumplist
     print "move"
     cb.updateboardinplace([[2,2],[3,3]],cb.board)
     cb.printboard(cb.board)
@@ -172,4 +173,5 @@ if __name__ == '__main__':
     cb.printboard(cb.board)
     jumplist = [[3,3]]
     newjumplist = cb.addtojumplist(jumplist,'R',cb.board)
-    pdb.set_trace()
+    print newjumplist
+    #pdb.set_trace()
