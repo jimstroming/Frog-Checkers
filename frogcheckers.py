@@ -47,11 +47,13 @@ class CheckersEngine(object):
                     [b[6][0],b[6][1],b[6][2],b[6][3],b[6][4],b[6][5],b[6][6],b[6][7]],
                     [b[7][0],b[7][1],b[7][2],b[7][3],b[7][4],b[7][5],b[7][6],b[7][7]]]
                            
-    def updateboardinplace(self,sourcex, sourcey, movelist, board):          
-        currentx = sourcex
-        currenty = sourcey
-        # for each move in the movelist
-        for move in movelist: 
+    def updateboardinplace(self,movelist, board):  
+        # the first entry in the movelist is the starting position 
+        currentpos = movelist[0]      
+        currentx = currentpos[0]
+        currenty = currentpos[1]
+        # for each move in the rest of movelist
+        for move in movelist[1:]: 
             piece = board[currenty][currentx]  
             # check for capture
             if abs(move[0]-currentx) == 2:
@@ -133,7 +135,7 @@ class CheckersEngine(object):
             movelist = [currentpos]
             movelist.append([jumpx,jumpy])
             # update the board to account for the jump
-            self.updateboardinplace(currentpos[0], currentpos[1], movelist, newboard)
+            self.updateboardinplace(movelist, newboard)
             # create a copy of the jump list
             newjumplist = deepcopy(jumplist)
             # append the new jump to the list
@@ -160,18 +162,14 @@ if __name__ == '__main__':
     cb = CheckersEngine()  
     cb.printboard(cb.board)
     print "move"
-    cb.updateboardinplace(2,2,[[3,3]],cb.board)
+    cb.updateboardinplace([[2,2],[3,3]],cb.board)
     cb.printboard(cb.board)
     print "move"
-    cb.updateboardinplace(1,5,[[2,4]],cb.board)
+    cb.updateboardinplace([[1,5],[2,4]],cb.board)
     cb.printboard(cb.board)
     print "move"
-    cb.updateboardinplace(5,5,[[4,4]],cb.board)
+    cb.updateboardinplace([[5,5],[4,4]],cb.board)
     cb.printboard(cb.board)
-    #print "move"
-    #cb.updateboardinplace(3,3,[[1,5]],cb.board)
-    #cb.printboard(cb.board)    
-    #pdb.set_trace()
     jumplist = [[3,3]]
     newjumplist = cb.addtojumplist(jumplist,'R',cb.board)
     pdb.set_trace()
