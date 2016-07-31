@@ -77,7 +77,7 @@ class CheckersEngine(object):
         
     def checkifvalidmove(self, color, move):
         # create the jumplist
-        jumplist = createjumplist(color, self.board)
+        jumplist = self.createjumplist(color, self.board)
         if len(jumplist) != 0:
             if move in jumplist: return True
             else:  return False
@@ -88,15 +88,16 @@ class CheckersEngine(object):
         
         currentpos = move[0]
         destpos    = move[1]
-        if board[destpos[1]][destpos[0]] != '00':  return False
-        piece = board[currentpos[1]][currentpos[0]]
-        jumpoffsetlist = self.blackjumpoffsetlist
+        #pdb.set_trace()
+        piece = self.board[currentpos[1]][currentpos[0]]
+        jumpoffsetlist = self.blackcaptureoffsetlist
         if piece[0] == 'R':
-            jumpoffsetlist = self.redjumpoffsetlist
+            jumpoffsetlist = self.redcaptureoffsetlist
         if piece[1] == 'K':
-            jumpoffsetlist = self.kingjumpoffsetlist
+            jumpoffsetlist = self.kingcaptureoffsetlist
         actualoffset = [destpos[0]-currentpos[0],destpos[1]-currentpos[1]]
-        if actualoffset in jumpoffsetlist:  return True
+        if not actualoffset in jumpoffsetlist:  return False
+        if self.board[destpos[1]][destpos[0]] == '00':  return True
         return False     
         
     def createjumplist(self,color,board):
@@ -204,6 +205,8 @@ if __name__ == '__main__':
     newjumplist = cb.addtojumplist(jumplist,'R',cb.board)
     print newjumplist
     print "move"
+    print cb.checkifvalidmove('R', [[2,2],[10,3]])
+    print cb.checkifvalidmove('R', [[2,2],[3,3]])
     cb.updateboardinplace([[2,2],[3,3]],cb.board)
     cb.printboard(cb.board)
     print "move"
