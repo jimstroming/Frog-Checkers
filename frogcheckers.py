@@ -72,7 +72,32 @@ class CheckersEngine(object):
             piece = 'RK'
         if currenty == 0 and piece[0] == 'B':
             pice = 'BK'
-        board[currenty][currentx] = piece        
+        board[currenty][currentx] = piece    
+        
+        
+    def checkifvalidmove(self, color, move):
+        # create the jumplist
+        jumplist = createjumplist(color, self.board)
+        if len(jumplist) != 0:
+            if move in jumplist: return True
+            else:  return False
+            
+        # if there is no jumplist, then the move is not a jump
+        # we just need to check if the destination is legal
+        # and is empty. 
+        
+        currentpos = move[0]
+        destpos    = move[1]
+        if board[destpos[1]][destpos[0]] != '00':  return False
+        piece = board[currentpos[1]][currentpos[0]]
+        jumpoffsetlist = self.blackjumpoffsetlist
+        if piece[0] == 'R':
+            jumpoffsetlist = self.redjumpoffsetlist
+        if piece[1] == 'K':
+            jumpoffsetlist = self.kingjumpoffsetlist
+        actualoffset = [destpos[0]-currentpos[0],destpos[1]-currentpos[1]]
+        if actualoffset in jumpoffsetlist:  return True
+        return False     
         
     def createjumplist(self,color,board):
         """ Function to create all the legal jumps
