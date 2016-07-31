@@ -17,19 +17,23 @@ class CheckersEngine(object):
         lastrow  = ['--','BC','--','BC','--','BC','--','BC'] # BC is a black checker
         self.board = [firstrow, wpawnrow, blnkrow2, blnkrow3,
                      blnkrow4, blnkrow5, bpawnrow, lastrow]
-        self.topcarx    = 0   # the top car starts on the left border
-        self.topcary    = 4
-        self.topcarwidth = 2
-        self.bottomcarx = 6   # the bottom car stars on the right border
-        self.bottomcary = 3
-        self.bottomcarwidth = 2
-        
+                      
         self.kingjumpoffsetlist          = [[-2,-2],[-2,2],[2,-2],[2,2]]
         self.kingcaptureoffsetlist       = [[-1,-1],[-1,1],[1,-1],[1,1]]
         self.redjumpoffsetlist           = [[-2,2], [2,2]]
         self.redcaptureoffsetlist        = [[-1,1], [1,1]]
         self.blackjumpoffsetlist         = [[-2,-2],[2,-2]]
         self.blackcaptureoffsetlist      = [[-1,-1],[1,-1]]
+
+        # define the car variables.   
+        # I will write the game first without the car, then add the car.
+        self.topcarx    = 0   # the top car starts on the left border
+        self.topcary    = 4 
+        self.topcarwidth = 2
+        self.bottomcarx = 6   # the bottom car stars on the right border
+        self.bottomcary = 3
+        self.bottomcarwidth = 2
+        
 
     def printboard(self,board):
         for x in range(0,8):
