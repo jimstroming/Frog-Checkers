@@ -1,8 +1,26 @@
+adb push android.txt /storage/emulated/0/kivy/roadkillfrog/.
 adb push frogcheckers.py /storage/emulated/0/kivy/roadkillfrog/.
 adb push roadkillfrog.kv /storage/emulated/0/kivy/roadkillfrog/.
 adb push main.py /storage/emulated/0/kivy/roadkillfrog/.
-adb push lilypad.png /storage/emulated/0/kivy/roadkillfrog/.
+
 adb push water.png /storage/emulated/0/kivy/roadkillfrog/.
+
+adb push lilypad.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push lilypad_black.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push lilypad_blackking.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push lilypad_white.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push lilypad_whiteking.png /storage/emulated/0/kivy/roadkillfrog/.
+
 adb push street_top.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push street_top_black.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push street_top_blackking.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push street_top_car.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push street_top_white.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push street_top_whiteking.png /storage/emulated/0/kivy/roadkillfrog/.
+
 adb push street_bottom.png /storage/emulated/0/kivy/roadkillfrog/.
-adb push android.txt /storage/emulated/0/kivy/roadkillfrog/.
+adb push street_bottom_black.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push street_bottom_blackking.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push street_bottom_car.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push street_bottom_white.png /storage/emulated/0/kivy/roadkillfrog/.
+adb push street_bottom_whiteking.png /storage/emulated/0/kivy/roadkillfrog/.
