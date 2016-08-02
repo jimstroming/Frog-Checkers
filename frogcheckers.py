@@ -12,8 +12,7 @@ class CheckersEngine(object):
         blnkrow3 = ['--','00','--','00','--','00','--','00']
         blnkrow4 = ['00','--','00','--','00','--','00','--']
         blnkrow5 = ['--','BC','--','BC','--','BC','--','BC']
-        bpawnrow = ['BC','--','BC','--','BC','--','BC','--'] # BK is a black king
-        #lastrow  = ['--','00','--','00','--','00','--','00']        
+        bpawnrow = ['BC','--','BC','--','BC','--','BC','--'] # BK is a black king       
         lastrow  = ['--','BC','--','BC','--','BC','--','BC'] # BC is a black checker
         self.board = [firstrow, wpawnrow, blnkrow2, blnkrow3,
                      blnkrow4, blnkrow5, bpawnrow, lastrow]
@@ -22,6 +21,8 @@ class CheckersEngine(object):
         self.kingcaptureoffsetlist       = [[-1,-1],[-1,1],[1,-1],[1,1]]
         self.whitejumpoffsetlist           = [[-2,2], [2,2]]
         self.whitecaptureoffsetlist        = [[-1,1], [1,1]]
+        self.newkingjumpoffsetlist       = [] # newly promoted king can not move
+        self.newkingcaptureoffsetlist    = [] # until the next turn
         self.blackjumpoffsetlist         = [[-2,-2],[2,-2]]
         self.blackcaptureoffsetlist      = [[-1,-1],[1,-1]]
 
@@ -57,6 +58,7 @@ class CheckersEngine(object):
         currentpos = movelist[0]      
         currentx = currentpos[0]
         currenty = currentpos[1]
+                
         # for each move in the rest of movelist
         for move in movelist[1:]: 
             piece = board[currenty][currentx]  
@@ -73,9 +75,9 @@ class CheckersEngine(object):
         
         # after the last move, see if we need to promote the checker to a king
         if currenty == 7 and piece[0] == 'W':
-            piece = 'WK'
+            piece = 'Wk'  # lower case is a newly promoted king
         if currenty == 0 and piece[0] == 'B':
-            piece = 'BK'
+            piece = 'Bk'  # newly promoted kings has to quit jumping this turn
         board[currenty][currentx] = piece    
         
         
@@ -100,6 +102,8 @@ class CheckersEngine(object):
             jumpoffsetlist = self.whitecaptureoffsetlist
         if piece[1] == 'K':
             jumpoffsetlist = self.kingcaptureoffsetlist
+        if piece[1] == 'k':
+            jumpoffsetlist = []
         actualoffset = [destpos[0]-currentpos[0],destpos[1]-currentpos[1]]
         if not actualoffset in jumpoffsetlist:  return False
         if self.board[destpos[1]][destpos[0]] == '00':  return True
@@ -108,6 +112,13 @@ class CheckersEngine(object):
     def makevalidmove(self,move):
         print "DAGWOOD81"
         self.updateboardinplace(move,self.board)  
+        # need to change any newly promoted kings from 'k' to 'K'
+        for y in range (0,8):
+            for x in range (0,8):
+                piece = self.board[y][x]
+                if piece[1] == 'k':
+                    piece = piece[0]+'K'
+                    self.board[y][x] = piece
         
     def createjumplist(self,color,board):
         """ Function to create all the legal jumps
@@ -157,6 +168,11 @@ class CheckersEngine(object):
             loopsize = 4
             jumpoffsetlist    = self.kingjumpoffsetlist
             captureoffsetlist = self.kingcaptureoffsetlist
+            
+        if currentpiece[1] == 'k':
+            loopsize = 0
+            jumpoffsetlist = []
+            captureoffsetlist = []
         
         # loop through all the possible jumps from the current position
         for i in range(0,loopsize):
@@ -192,7 +208,7 @@ class CheckersEngine(object):
             newjumplist.append([jumpx,jumpy])
             # check if the piece was promoted to king
             currentpiece = newboard[jumpy][jumpx]
-            if currentpiece[1] == 'K':
+            if currentpiece[1] == 'k':
                 resultjumplist.append(newjumplist)
             else:
                 # if not, recursively call addtojumplist
