@@ -3,7 +3,7 @@ import random
 from copy import deepcopy
 
 class CheckersEngine(object):
-    # red on bottom, black on top
+    # white on bottom, black on top
    
     def __init__(self):
         firstrow = ['WC','--','WC','--','WC','--','WC','--'] # WC is a white checker
@@ -20,8 +20,8 @@ class CheckersEngine(object):
                       
         self.kingjumpoffsetlist          = [[-2,-2],[-2,2],[2,-2],[2,2]]
         self.kingcaptureoffsetlist       = [[-1,-1],[-1,1],[1,-1],[1,1]]
-        self.redjumpoffsetlist           = [[-2,2], [2,2]]
-        self.redcaptureoffsetlist        = [[-1,1], [1,1]]
+        self.whitejumpoffsetlist           = [[-2,2], [2,2]]
+        self.whitecaptureoffsetlist        = [[-1,1], [1,1]]
         self.blackjumpoffsetlist         = [[-2,-2],[2,-2]]
         self.blackcaptureoffsetlist      = [[-1,-1],[1,-1]]
 
@@ -37,7 +37,7 @@ class CheckersEngine(object):
 
     def printboard(self,board):
         for x in range(0,8):
-            print board[7-x] 
+            print "DAGWOOD99",board[7-x] 
             
     def getpiece(self, x, y):
         return self.board[y][x]        
@@ -72,10 +72,10 @@ class CheckersEngine(object):
             currenty = move[1]
         
         # after the last move, see if we need to promote the checker to a king
-        if currenty == 7 and piece[0] == 'R':
-            piece = 'RK'
+        if currenty == 7 and piece[0] == 'W':
+            piece = 'WK'
         if currenty == 0 and piece[0] == 'B':
-            pice = 'BK'
+            piece = 'BK'
         board[currenty][currentx] = piece    
         
         
@@ -95,8 +95,8 @@ class CheckersEngine(object):
         #pdb.set_trace()
         piece = self.board[currentpos[1]][currentpos[0]]
         jumpoffsetlist = self.blackcaptureoffsetlist
-        if piece[0] == 'R':
-            jumpoffsetlist = self.redcaptureoffsetlist
+        if piece[0] == 'W':
+            jumpoffsetlist = self.whitecaptureoffsetlist
         if piece[1] == 'K':
             jumpoffsetlist = self.kingcaptureoffsetlist
         actualoffset = [destpos[0]-currentpos[0],destpos[1]-currentpos[1]]
@@ -143,10 +143,10 @@ class CheckersEngine(object):
         currentpiece = board[currentpos[1]][currentpos[0]]
         
         loopsize = 2
-        if currentpiece[0] == 'R':
+        if currentpiece[0] == 'W':
             #pdb.set_trace()
-            jumpoffsetlist    = self.redjumpoffsetlist
-            captureoffsetlist = self.redcaptureoffsetlist
+            jumpoffsetlist    = self.whitejumpoffsetlist
+            captureoffsetlist = self.whitecaptureoffsetlist
         else:
             jumpoffsetlist    = self.blackjumpoffsetlist
             captureoffsetlist = self.blackcaptureoffsetlist
@@ -209,17 +209,17 @@ if __name__ == '__main__':
     cb = CheckersEngine()  
     cb.printboard(cb.board)
     jumplist = [[1,1]]
-    newjumplist = cb.addtojumplist(jumplist,'R',cb.board)
+    newjumplist = cb.addtojumplist(jumplist,'W',cb.board)
     print newjumplist
     print "move"
-    print cb.checkifvalidmove('R', [[2,2],[10,3]])
-    print cb.checkifvalidmove('R', [[2,2],[3,3]])
-    cb.makevalidmove([[2,2],[3,3]])
+    print cb.checkifvalidmove('W', [[4,2],[5,3]])
+    cb.makevalidmove([[4,2],[5,3]])
     cb.printboard(cb.board)
     print "move"
-    cb.makevalidmove([[1,5],[2,4]])
+    print cb.checkifvalidmove('B', [[7,5],[6,4]])    
+    cb.makevalidmove([[7,5],[6,4]])
     cb.printboard(cb.board)
-    print "move"
+    """print "move"
     cb.makevalidmove([[5,5],[4,4]])
     print "move"
     cb.makevalidmove([[7,5],[6,4]])
@@ -227,8 +227,8 @@ if __name__ == '__main__':
     cb.makevalidmove([[6,4],[5,3]])
     cb.printboard(cb.board)
     #jumplist = [[3,3]]
-    #newjumplist = cb.addtojumplist(jumplist,'R',cb.board)
+    #newjumplist = cb.addtojumplist(jumplist,'W',cb.board)
     #print newjumplist
-    totaljumplist = cb.createjumplist('R',cb.board)
-    print totaljumplist
+    totaljumplist = cb.createjumplist('W',cb.board)
+    print totaljumplist"""
     #pdb.set_trace()

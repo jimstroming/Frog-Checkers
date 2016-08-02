@@ -58,10 +58,11 @@ class RoadkillFrogRoot(BoxLayout):
         
     def updateboardui(self): 
         """ Update the display to match the engine."""
+        print "DAGWOOD70"
         if self.blind == 1: return
         for x in range(0,8):
             for y in range(0,8):
-                print "DAGWOOD20"
+                print "DAGWOOD20",x,y
                 stringid = "but"+str(x)+str(y)
                 colorpiece = self.checkersengine.getpiece(x,y)
                 buttonid = "but"+str(x)+str(y)
@@ -69,8 +70,15 @@ class RoadkillFrogRoot(BoxLayout):
                 if colorpiece != '--':
                     print "DAGWOOD22a", colorpiece
                     buttongraphic = self.rowspritenames[y]+self.spritegraphics[colorpiece]+'.png'
-                    self.ids[buttonid].background_normal = buttongraphic
-                    print "DAGWOOD23a", buttongraphic       
+                    print "DAGWOOD23a", buttongraphic 
+                else:
+                    buttongraphic = 'water.png'
+                    if y == 3:
+                        buttongraphic = 'street_bottom.png'
+                    if y == 4:
+                        buttongraphic = 'street_top.png'    
+                self.ids[buttonid].background_normal = buttongraphic   
+                self.ids[buttonid].background_color = [1, 1, 1, 1]                   
 
     def setallfontsonecolor(self, color):
         """ Sets the button and counts to a color to alert the player something has happened."""
@@ -186,6 +194,23 @@ class RoadkillFrogRoot(BoxLayout):
             self.ids[labelid].color = self.purewhite
         else:
             self.ids[labelid].color = self.pureblack
+ 
+    def resetaftermove(self):
+        """ Reset the board after a move."""
+        # reset both the cursors ui
+        #if self.sourcex != -1:
+        #    self.resetsquarebackground(self.sourcex,self.sourcey)
+        #if self.destx != -1:    
+        #    self.resetsquarebackground(self.destx,self.desty)
+        # reset the source and destination
+        self.movelist = []
+        # redraw the board
+        self.updateboardui()
+        # reset the message colors
+        self.restoreallfonts()
+        # set the state
+        self.state = "looking for moves"
+
             
     def buttonpress(self, x, y):
         """ Process a button press on the game board.  Each board square is a button."""
@@ -232,6 +257,36 @@ class RoadkillFrogRoot(BoxLayout):
             return
         self.cancelcount = 0    
         self.resetcount = 0        
+        if self.whosemove == color:
+  
+            if self.state == "looking for moves" and len(self.movelist) > 1:
+                # check if the move is legal
+                print "DAGWOOD60", self.whosemove, self.movelist
+                validmove = self.checkersengine.checkifvalidmove(self.whosemove, self.movelist)
+                print "DAGWOOD61", validmove
+                if validmove:  
+                    #self.movestring = self.chessengine.getmovenotation(self.sourcex, self.sourcey, 
+                    #                self.destx, self.desty) # get the move notation
+                    print "DAGWOOD62"
+                    self.checkersengine.makevalidmove(self.movelist)
+                    print self.checkersengine.printboard(self.checkersengine.board)
+                    print "DAGWOOD63"
+                    #self.updatebothmessages(self.movestring,self.whosemove)
+                    print "DAGWOOD64"
+                    if self.whosemove == 'B': # switch the players turn
+                        self.whosemove = 'W'
+                    else:
+                        self.whosemove = 'B'
+                    print "DAGWOOD65"
+                    self.setwidgetbackgroundcolors()
+                    print "DAGWOOD66"
+                    self.resetaftermove()
+                    print "DAGWOOD67"
+                else:
+                    self.increasemistakecount(self.whosemove)
+                    self.resetaftermove()
+                    self.setallfontsonecolor((1,0,0,1)) # turn the fonts red
+                return
         
 
 class RoadKillFrogApp(App):
