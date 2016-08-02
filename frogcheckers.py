@@ -167,7 +167,7 @@ class CheckersEngine(object):
             jumpx = currentpos[0]+jumpoffset[0]
             jumpy = currentpos[1]+jumpoffset[1]
             if jumpx < 0 or jumpx > 7: continue
-            if jumpy < 0 or jumpx > 7: continue     
+            if jumpy < 0 or jumpy > 7: continue     
             if board[jumpy][jumpx] != '00': continue   
             # check if there is an opposing checker to capture
             captureoffset = captureoffsetlist[i]
