@@ -90,13 +90,14 @@ class CheckersEngine(object):
             else:  return False
             
         # if there is no jumplist, then the move is not a jump
-        # we just need to check if the destination is legal
-        # and is empty. 
+        # we just need to check if the source is the correct color
+        # and the destination is legal and empty. 
         
         currentpos = move[0]
         destpos    = move[1]
         #pdb.set_trace()
         piece = self.board[currentpos[1]][currentpos[0]]
+        if piece[0] != color: return False
         jumpoffsetlist = self.blackcaptureoffsetlist
         if piece[0] == 'W':
             jumpoffsetlist = self.whitecaptureoffsetlist
