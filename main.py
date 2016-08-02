@@ -11,6 +11,16 @@ class RoadkillFrogRoot(BoxLayout):
         print "DAGWOOD10"        
         self.createcheckersengine()
         print "DAGWOOD11"
+        self.rowspritenames = ['lilypad','lilypad','lilypad','street_bottom',
+                               'street_top','lilypad','lilypad','lilypad']
+        self.spritegraphics = {
+                   'WC': '_white',
+                   'WK': '_whiteking',
+                   'BC': '_black',
+                   'BK': '_blackking',
+                   'CR': '_car',
+                   '00': ''}
+                           
         self.purewhite   = ( 1,   1,  1, 1)
         self.brightwhite = (0.9,0.9,0.9, 1)
         self.lightgray   = (0.6,0.6,0.6, 1)
@@ -56,6 +66,7 @@ class RoadkillFrogRoot(BoxLayout):
         
     def updateboardui(self): 
         """ Update the display to match the engine."""
+        if self.blind == 1: return
         for x in range(0,8):
             for y in range(0,8):
                 print "DAGWOOD20"
@@ -63,25 +74,11 @@ class RoadkillFrogRoot(BoxLayout):
                 colorpiece = self.checkersengine.getpiece(x,y)
                 buttonid = "but"+str(x)+str(y)
                 print "DAGWOOD21"
-                if self.blind == 0 and colorpiece[0] != '0':
-                    if colorpiece[0] == 'B':
-                        print "DAGWOOD22a"
-                        self.ids[buttonid].color = self.pureblack
-                        self.ids[buttonid].text = colorpiece[1]
-                        print "DAGWOOD23a"
-                    if colorpiece[0] == 'W':
-                        print "DAGWOOD22b"
-                        print "DAGWOOD",buttonid
-                        print "DAGWOOD",self.purewhite
-                        self.ids[buttonid].color = self.purewhite
-                        self.ids[buttonid].text = colorpiece[1]
-                        print "DAGWOOD23b"
-                    if colorpiece == '--':
-                        self.ids[buttonid].text = ''                        
-                    print "DAGWOOD24"
-                    
-                else:
-                    self.ids[buttonid].text = ''        
+                if colorpiece != '--':
+                    print "DAGWOOD22a", colorpiece
+                    buttongraphic = self.rowspritenames[y]+self.spritegraphics[colorpiece]+'.png'
+                    self.ids[buttonid].background_normal = buttongraphic
+                    print "DAGWOOD23a", buttongraphic       
 
     def setallfontsonecolor(self, color):
         """ Sets the button and counts to a color to alert the player something has happened."""
