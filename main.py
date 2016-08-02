@@ -59,7 +59,6 @@ class RoadkillFrogRoot(BoxLayout):
     def updateboardui(self): 
         """ Update the display to match the engine."""
         print "DAGWOOD70"
-        if self.blind == 1: return
         for x in range(0,8):
             for y in range(0,8):
                 print "DAGWOOD20",x,y
@@ -69,7 +68,10 @@ class RoadkillFrogRoot(BoxLayout):
                 print "DAGWOOD21"
                 if colorpiece != '--':
                     print "DAGWOOD22a", colorpiece
-                    buttongraphic = self.rowspritenames[y]+self.spritegraphics[colorpiece]+'.png'
+                    buttongraphic = self.rowspritenames[y]
+                    if self.blind == 0: 
+                        buttongraphic += self.spritegraphics[colorpiece]
+                    buttongraphic += '.png'
                     print "DAGWOOD23a", buttongraphic 
                 else:
                     buttongraphic = 'water.png'

@@ -1,6 +1,3 @@
 2. Illegal moves are possible.  I wrapped a piece around the board.
 3. Add the cars.  Make it configurable so the engine works without cars, too.
-4. Need to make blind mode work.  (Car should show in blind mode.)
-5. Add something to handle double taps.  Write now a double tap is a mistake.
-   I don't think the 2nd tap on an already selected square should count for anything.
 6. Make blindfold and non blindfold mode selectable.
