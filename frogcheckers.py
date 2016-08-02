@@ -80,6 +80,7 @@ class CheckersEngine(object):
         
         
     def checkifvalidmove(self, color, move):
+        print "DAGWOOD80"
         # create the jumplist
         jumplist = self.createjumplist(color, self.board)
         if len(jumplist) != 0:
@@ -105,6 +106,7 @@ class CheckersEngine(object):
         return False    
         
     def makevalidmove(self,move):
+        print "DAGWOOD81"
         self.updateboardinplace(move,self.board)  
         
     def createjumplist(self,color,board):
@@ -219,6 +221,11 @@ if __name__ == '__main__':
     print cb.checkifvalidmove('B', [[7,5],[6,4]])    
     cb.makevalidmove([[7,5],[6,4]])
     cb.printboard(cb.board)
+    print "move"
+    print cb.checkifvalidmove('W', [[0,2],[1,3]])
+    cb.makevalidmove([[0,2],[1,3]])
+    cb.printboard(cb.board)
+    
     """print "move"
     cb.makevalidmove([[5,5],[4,4]])
     print "move"
