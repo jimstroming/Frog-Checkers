@@ -31,10 +31,7 @@ class RoadkillFrogRoot(BoxLayout):
         self.ids["messageB"].text = 'Black Move'
         self.setcancelandmovebuttons('cancel','move')
         self.blind = 0    # 1 means blind.  0 means show the pieces  
-        self.sourcex = -1  # set the source and destination to none
-        self.sourcey = -1 
-        self.destx = -1
-        self.desty = -1     
+        self.movelist = []   
         self.resetbothmistakecounts()
         self.updateboardui()
         #for x in range(0,8):
@@ -53,11 +50,7 @@ class RoadkillFrogRoot(BoxLayout):
         self.resetx = 0
         self.resety = 0
         Clock.schedule_interval(self.updateclocks, 1)
-        if self.whiteplayer == 'human':
-            self.state = "looking for source"        
-        else:
-            self.state = "cpu turn to move"
-            #self.cpumove(0)
+        self.state = "looking for moves"        
 
     def createcheckersengine(self):
         """ Creates the checkers engine.  Maintains the game state and enforces move rules."""
@@ -194,6 +187,39 @@ class RoadkillFrogRoot(BoxLayout):
         else:
             self.ids[labelid].color = self.pureblack
             
+    def buttonpress(self, x, y):
+        """ Process a button press on the game board.  Each board square is a button."""
+        print "DAGWOOD40"
+        message = self.ids["messageB"].text
+        if message == 'Select Number of Players':
+            return 
+        self.cancelcount = 0
+        if self.resetcount == 0:  # pressing the same square five times in a row
+            self.resetcount = 1   # resets the game
+            self.resetx = x
+            self.resety = y
+        elif self.resetx == x and self.resety == y:
+            self.resetcount += 1
+        else:
+            self.resetcount = 0
+     
+        if self.resetcount == 5:
+            del self.checkersengine
+            self.initialsetup()   
+            return
+     
+        if self.state == "looking for moves":
+            buttonid = "but"+str(x)+str(y)  
+            # add the press to the move list  
+            print "DAGWOOD41" 
+            self.movelist.append([x,y])
+            if self.whosemove == 'W':
+                self.ids[buttonid].background_color = self.purewhite
+            else:
+                self.ids[buttonid].background_color = self.pureblack
+            self.ids[buttonid].background_normal = ''
+            return
+                    
         
     def movebuttonpress(self, color):
         """ Process a press on the move button."""
