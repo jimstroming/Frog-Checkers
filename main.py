@@ -235,6 +235,8 @@ class RoadkillFrogRoot(BoxLayout):
      
         if self.state == "looking for moves":
             buttonid = "but"+str(x)+str(y)  
+            # if the move is already in the move list, don't add it.
+            if [x,y] in self.movelist: return
             # add the press to the move list  
             print "DAGWOOD41" 
             self.movelist.append([x,y])
