@@ -67,15 +67,19 @@ class RoadkillFrogRoot(BoxLayout):
                     if colorpiece[0] == 'B':
                         print "DAGWOOD22a"
                         self.ids[buttonid].color = self.pureblack
+                        self.ids[buttonid].text = colorpiece[1]
                         print "DAGWOOD23a"
-                    else:
+                    if colorpiece[0] == 'W':
                         print "DAGWOOD22b"
                         print "DAGWOOD",buttonid
                         print "DAGWOOD",self.purewhite
                         self.ids[buttonid].color = self.purewhite
+                        self.ids[buttonid].text = colorpiece[1]
                         print "DAGWOOD23b"
+                    if colorpiece == '--':
+                        self.ids[buttonid].text = ''                        
                     print "DAGWOOD24"
-                    self.ids[buttonid].text = colorpiece[1]
+                    
                 else:
                     self.ids[buttonid].text = ''        
 

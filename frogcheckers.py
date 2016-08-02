@@ -6,9 +6,9 @@ class CheckersEngine(object):
     # red on bottom, black on top
    
     def __init__(self):
-        firstrow = ['RC','--','RC','--','RC','--','RC','--'] # RC is a red checker
-        wpawnrow = ['--','RC','--','RC','--','RC','--','RC'] # RK is a red king
-        blnkrow2 = ['RC','--','RC','--','RC','--','RC','--']
+        firstrow = ['WC','--','WC','--','WC','--','WC','--'] # WC is a white checker
+        wpawnrow = ['--','WC','--','WC','--','WC','--','WC'] # WK is a white king
+        blnkrow2 = ['WC','--','WC','--','WC','--','WC','--']
         blnkrow3 = ['--','00','--','00','--','00','--','00']
         blnkrow4 = ['00','--','00','--','00','--','00','--']
         blnkrow5 = ['--','BC','--','BC','--','BC','--','BC']
