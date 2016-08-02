@@ -43,7 +43,6 @@ class RoadkillFrogRoot(BoxLayout):
         
         self.whosemove = 'W' # white moves first
         self.setwidgetbackgroundcolors()
-        """
         self.ids['clockW'].text = "10:00"
         self.ids['clockB'].text = "10:00"
         self.ids['messageW'].font_size = '30dp'
@@ -53,13 +52,12 @@ class RoadkillFrogRoot(BoxLayout):
                              # resets the game
         self.resetx = 0
         self.resety = 0
-        #Clock.schedule_interval(self.updateclocks, 1)
+        Clock.schedule_interval(self.updateclocks, 1)
         if self.whiteplayer == 'human':
             self.state = "looking for source"        
         else:
             self.state = "cpu turn to move"
             #self.cpumove(0)
-        """
 
     def createcheckersengine(self):
         """ Creates the checkers engine.  Maintains the game state and enforces move rules."""
