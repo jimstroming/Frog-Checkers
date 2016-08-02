@@ -288,6 +288,27 @@ class RoadkillFrogRoot(BoxLayout):
                     self.setallfontsonecolor((1,0,0,1)) # turn the fonts red
                 return
         
+    def cancelbuttonpress(self, color):
+        """ Process a press on the cancel button."""
+        message = self.ids["messageB"].text
+        if message == 'Select Number of Players':
+            self.numberplayers = 1
+            if color == 'B': 
+                self.whiteplayer = 'cpu'
+                self.blackplayer = 'human'
+            else:
+                self.whiteplayer = 'human'
+                self.blackplayer = 'cpu'                 
+            self.initialsetup()
+            return
+        self.cancelcount += 1
+        self.resetcount = 0
+        if self.cancelcount == 3:
+            self.blind = 1-self.blind
+            self.cancelcount = 0            
+        if self.whosemove == color:            
+            self.resetaftermove()
+
 
 class RoadKillFrogApp(App):
     """ The kivy game app."""
