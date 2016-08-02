@@ -37,12 +37,13 @@ class RoadkillFrogRoot(BoxLayout):
         self.desty = -1     
         self.resetbothmistakecounts()
         self.updateboardui()
-        """
-        for x in range(0,8):
-            for y in range(0,8):
-               #self.resetsquarebackground(x,y)
+        #for x in range(0,8):
+        #    for y in range(0,8):
+        #       #self.resetsquarebackground(x,y)
+        
         self.whosemove = 'W' # white moves first
-        #self.setwidgetbackgroundcolors()
+        self.setwidgetbackgroundcolors()
+        """
         self.ids['clockW'].text = "10:00"
         self.ids['clockB'].text = "10:00"
         self.ids['messageW'].font_size = '30dp'
@@ -103,6 +104,58 @@ class RoadkillFrogRoot(BoxLayout):
         self.ids['moveB'].color = self.lightgray
         self.ids['cancelW'].color = self.darkgray
         self.ids['cancelB'].color = self.lightgray
+        
+                   
+    def getboardcolor(self,x,y):
+        """ Returns the background color of a board square."""
+        if (y%2 == 0 and x%2 == 0) or (y%2 == 1 and x%2 == 1):
+            return self.darkgray
+        else:
+            return self.lightgray  
+            
+    def updateclocks(self,dt):
+        """ Adds one second to the active board clock."""
+        if self.whosemove == 'W':
+            timestring = self.ids['clockW'].text
+        else:
+            timestring = self.ids['clockB'].text
+            
+        if timestring != '00:00':
+            if timestring[4] != '0':
+                timestring = timestring[0:4]+str(int(timestring[4])-1)
+            else:
+                if timestring[3] != '0':
+                    timestring = timestring[0:3]+str(int(timestring[3])-1)+'9'
+                else:
+                    if timestring[1] != '0':
+                        timestring = timestring[0]+str(int(timestring[1])-1)+timestring[2]+'59'
+                    else:
+                        timestring = str(int(timestring[0])-1)+'9:59'
+        if self.whosemove == 'W':
+            self.ids['clockW'].text = timestring
+        else:
+            self.ids['clockB'].text = timestring            
+            
+    def setwidgetbackgroundcolors(self):
+        """ Sets the background color of the move and cancel buttons."""
+        if self.whosemove == 'W': 
+            blackcolor = self.darkgray
+            whitecolor = self.brightwhite
+        else:
+            blackcolor = self.darkblack
+            whitecolor = self.lightgray
+        self.ids["moveB"].background_color = blackcolor
+        self.ids["cancelB"].background_color = blackcolor
+        self.ids["moveW"].background_color = whitecolor
+        self.ids["cancelW"].background_color = whitecolor
+        
+        
+        
+        
+        
+        
+        
+        
 
     def setcancelandmovebuttons(self,canceltext,movetext):
         self.ids["moveB"].text = movetext
