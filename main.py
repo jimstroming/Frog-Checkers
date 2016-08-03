@@ -49,7 +49,7 @@ class RoadkillFrogRoot(BoxLayout):
                              # resets the game
         self.resetx = 0
         self.resety = 0
-        Clock.schedule_interval(self.updateclocks, 1)
+        self.clock = Clock.schedule_interval(self.updateclocks, 1)
         self.state = "looking for moves"        
 
     def createcheckersengine(self):
@@ -232,6 +232,7 @@ class RoadkillFrogRoot(BoxLayout):
      
         if self.resetcount == 5:
             del self.checkersengine
+            self.clock.cancel()
             self.initialsetup()   
             return
      
