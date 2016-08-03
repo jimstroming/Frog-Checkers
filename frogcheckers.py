@@ -6,6 +6,7 @@ class CheckersEngine(object):
     # white on bottom, black on top
    
     def __init__(self):
+
         firstrow = ['WC','--','WC','--','WC','--','WC','--'] # WC is a white checker
         wpawnrow = ['--','WC','--','WC','--','WC','--','WC'] # WK is a white king
         blnkrow2 = ['WC','--','WC','--','WC','--','WC','--']
@@ -14,6 +15,7 @@ class CheckersEngine(object):
         blnkrow5 = ['--','BC','--','BC','--','BC','--','BC']
         bpawnrow = ['BC','--','BC','--','BC','--','BC','--'] # BK is a black king       
         lastrow  = ['--','BC','--','BC','--','BC','--','BC'] # BC is a black checker
+
         self.board = [firstrow, wpawnrow, blnkrow2, blnkrow3,
                      blnkrow4, blnkrow5, bpawnrow, lastrow]
                       
@@ -38,7 +40,7 @@ class CheckersEngine(object):
 
     def printboard(self,board):
         for x in range(0,8):
-            print "DAGWOOD99",board[7-x] 
+            print board[7-x] 
             
     def getpiece(self, x, y):
         return self.board[y][x]        
@@ -82,11 +84,8 @@ class CheckersEngine(object):
         
         
     def checkifvalidmove(self, color, move):
-        print "DAGWOOD80", color, move
         # create the jumplist
         jumplist = self.createjumplist(color, self.board)
-        print "DAGWOOD81", jumplist
-        #self.printboard(self.board)
         if len(jumplist) != 0:
             if move in jumplist: return True
             else:  return False
@@ -258,11 +257,12 @@ if __name__ == '__main__':
     import cProfile
     cb = CheckersEngine()  
     cb.printboard(cb.board)
-    jumplist = [[1,1]]
-    newjumplist = cb.addtojumplist(jumplist,'W',cb.board)
-    print newjumplist
+    #jumplist = [[1,1]]
+    #newjumplist = cb.addtojumplist(jumplist,'W',cb.board)
+    #print newjumplist
     print "move"
-    print cb.checkifvalidmove('W', [[4,2],[5,3]])
+    print cb.checkifvalidmove('B', [[3,3],[4,4]])
+    pdb.set_trace()
     cb.makevalidmove([[4,2],[5,3]])
     cb.printboard(cb.board)
     print "move"

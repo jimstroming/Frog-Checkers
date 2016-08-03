@@ -8,9 +8,7 @@ from frogcheckers import CheckersEngine
 class RoadkillFrogRoot(BoxLayout):
     def initialsetup(self):  # called at the beginning of the game
         """ initialize the game state.  Called on the first button press."""
-        print "DAGWOOD10"        
         self.createcheckersengine()
-        print "DAGWOOD11"
         self.rowspritenames = ['lilypad','lilypad','lilypad','street_bottom',
                                'street_top','lilypad','lilypad','lilypad']
         self.spritegraphics = {
@@ -58,21 +56,16 @@ class RoadkillFrogRoot(BoxLayout):
         
     def updateboardui(self): 
         """ Update the display to match the engine."""
-        print "DAGWOOD70"
         for x in range(0,8):
             for y in range(0,8):
-                print "DAGWOOD20",x,y
                 stringid = "but"+str(x)+str(y)
                 colorpiece = self.checkersengine.getpiece(x,y)
                 buttonid = "but"+str(x)+str(y)
-                print "DAGWOOD21"
                 if colorpiece != '--':
-                    print "DAGWOOD22a", colorpiece
                     buttongraphic = self.rowspritenames[y]
                     if self.blind == 0 or colorpiece == 'CR': 
                         buttongraphic += self.spritegraphics[colorpiece]
                     buttongraphic += '.png'
-                    print "DAGWOOD23a", buttongraphic 
                 else:
                     buttongraphic = 'water.png'
                     if y == 3:
@@ -216,7 +209,6 @@ class RoadkillFrogRoot(BoxLayout):
             
     def buttonpress(self, x, y):
         """ Process a button press on the game board.  Each board square is a button."""
-        print "DAGWOOD40"
         message = self.ids["messageB"].text
         if message == 'Select Number of Players':
             return 
@@ -241,7 +233,6 @@ class RoadkillFrogRoot(BoxLayout):
             # if the move is already in the move list, don't add it.
             if [x,y] in self.movelist: return
             # add the press to the move list  
-            print "DAGWOOD41" 
             self.movelist.append([x,y])
             if self.whosemove == 'W':
                 self.ids[buttonid].background_color = self.purewhite
@@ -266,27 +257,19 @@ class RoadkillFrogRoot(BoxLayout):
   
             if self.state == "looking for moves" and len(self.movelist) > 1:
                 # check if the move is legal
-                print "DAGWOOD60", self.whosemove, self.movelist
                 validmove = self.checkersengine.checkifvalidmove(self.whosemove, self.movelist)
-                print "DAGWOOD61", validmove
                 if validmove:  
                     #self.movestring = self.chessengine.getmovenotation(self.sourcex, self.sourcey, 
                     #                self.destx, self.desty) # get the move notation
-                    print "DAGWOOD62"
                     self.checkersengine.makevalidmove(self.movelist)
                     print self.checkersengine.printboard(self.checkersengine.board)
-                    print "DAGWOOD63"
                     #self.updatebothmessages(self.movestring,self.whosemove)
-                    print "DAGWOOD64"
                     if self.whosemove == 'B': # switch the players turn
                         self.whosemove = 'W'
                     else:
                         self.whosemove = 'B'
-                    print "DAGWOOD65"
                     self.setwidgetbackgroundcolors()
-                    print "DAGWOOD66"
                     self.resetaftermove()
-                    print "DAGWOOD67"
                 else:
                     self.increasemistakecount(self.whosemove)
                     self.resetaftermove()
