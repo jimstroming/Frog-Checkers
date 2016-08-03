@@ -34,7 +34,7 @@ class CheckersEngine(object):
         self.bottomcarx = random.randint(0,7)
         self.bottomcary = 3
         self.board[self.bottomcary][self.bottomcarx] = 'CR'
-        self.carcolortomove = 'W'        
+        self.carcolortomove = 'B'        
 
     def printboard(self,board):
         for x in range(0,8):
@@ -82,9 +82,11 @@ class CheckersEngine(object):
         
         
     def checkifvalidmove(self, color, move):
-        print "DAGWOOD80"
+        print "DAGWOOD80", color, move
         # create the jumplist
         jumplist = self.createjumplist(color, self.board)
+        print "DAGWOOD81", jumplist
+        #self.printboard(self.board)
         if len(jumplist) != 0:
             if move in jumplist: return True
             else:  return False
@@ -111,7 +113,6 @@ class CheckersEngine(object):
         return False    
         
     def makevalidmove(self,move):
-        print "DAGWOOD81"
         self.updateboardinplace(move,self.board)  
         # need to change any newly promoted kings from 'k' to 'K'
         for y in range (0,8):

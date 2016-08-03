@@ -38,7 +38,7 @@ class RoadkillFrogRoot(BoxLayout):
         #    for y in range(0,8):
         #       #self.resetsquarebackground(x,y)
         
-        self.whosemove = 'W' # white moves first
+        self.whosemove = 'B' # white moves first
         self.setwidgetbackgroundcolors()
         self.ids['clockW'].text = "10:00"
         self.ids['clockB'].text = "10:00"

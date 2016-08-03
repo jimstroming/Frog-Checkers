@@ -1,6 +1,7 @@
 1. Illegal moves may be possible.  I wrapped a piece around the board earlier. 
 2. Make blindfold and non blindfold mode selectable.
-   
+3. It gets into a state where it can't make a jump
+5. Need to add move notation.   
    
    
    
