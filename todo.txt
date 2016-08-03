@@ -1,3 +1,3 @@
-2. Illegal moves are possible.  I wrapped a piece around the board.
-3. Add the cars.  Make it configurable so the engine works without cars, too.
+2. Illegal moves may be possible.  I wrapped a piece around the board earlier.
+4. Make the car starting positions random.   
 6. Make blindfold and non blindfold mode selectable.

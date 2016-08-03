@@ -9,8 +9,8 @@ class CheckersEngine(object):
         firstrow = ['WC','--','WC','--','WC','--','WC','--'] # WC is a white checker
         wpawnrow = ['--','WC','--','WC','--','WC','--','WC'] # WK is a white king
         blnkrow2 = ['WC','--','WC','--','WC','--','WC','--']
-        blnkrow3 = ['--','00','--','00','--','00','--','00']
-        blnkrow4 = ['00','--','00','--','00','--','00','--']
+        blnkrow3 = ['--','00','--','00','--','00','--','CR']
+        blnkrow4 = ['CR','--','00','--','00','--','00','--']
         blnkrow5 = ['--','BC','--','BC','--','BC','--','BC']
         bpawnrow = ['BC','--','BC','--','BC','--','BC','--'] # BK is a black king       
         lastrow  = ['--','BC','--','BC','--','BC','--','BC'] # BC is a black checker
@@ -30,11 +30,9 @@ class CheckersEngine(object):
         # I will write the game first without the car, then add the car.
         self.topcarx    = 0   # the top car starts on the left border
         self.topcary    = 4 
-        self.topcarwidth = 2
         self.bottomcarx = 6   # the bottom car stars on the right border
         self.bottomcary = 3
-        self.bottomcarwidth = 2
-        
+        self.carcolortomove = 'W'        
 
     def printboard(self,board):
         for x in range(0,8):
@@ -120,6 +118,35 @@ class CheckersEngine(object):
                 if piece[1] == 'k':
                     piece = piece[0]+'K'
                     self.board[y][x] = piece
+        # move the car
+        self.movethecar(self.board)
+        
+    def movethecar(self,board):
+        """ Moves all the cars in the street on one side of the board.
+            White side cars move left.
+            Black side cars move right.
+            Each call it alternates which color moves
+        """    
+        if self.carcolortomove == 'W':
+            y = 3
+            increment = -1
+            self.carcolortomove = 'B'
+        else:
+            y = 4
+            increment = 1
+            self.carcolortomove = 'W'
+
+        newcars = []
+        for x in range(0,8):
+            if board[y][x] == 'CR':
+                board[y][x] = '00'
+                newx = x+increment
+                if newx == -1: newx = 7
+                if newx == 8: newx = 0
+                newcars.append(newx)
+        for x in newcars:            
+            board[y][x] = 'CR'
+              
         
     def createjumplist(self,color,board):
         """ Function to create all the legal jumps
@@ -193,6 +220,7 @@ class CheckersEngine(object):
             capturepiece = board[capturey][capturex] 
             if capturepiece == '00': continue
             if capturepiece[0] == color: continue
+            if capturepiece[0] == 'C': continue
         
             # we have found a legal jump
     
