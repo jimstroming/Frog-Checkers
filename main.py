@@ -69,7 +69,7 @@ class RoadkillFrogRoot(BoxLayout):
                 if colorpiece != '--':
                     print "DAGWOOD22a", colorpiece
                     buttongraphic = self.rowspritenames[y]
-                    if self.blind == 0: 
+                    if self.blind == 0 or colorpiece == 'CR': 
                         buttongraphic += self.spritegraphics[colorpiece]
                     buttongraphic += '.png'
                     print "DAGWOOD23a", buttongraphic 
