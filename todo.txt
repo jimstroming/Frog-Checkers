@@ -1,3 +1,14 @@
-2. Illegal moves may be possible.  I wrapped a piece around the board earlier.
-4. Make the car starting positions random.   
-6. Make blindfold and non blindfold mode selectable.
+1. Illegal moves may be possible.  I wrapped a piece around the board earlier. 
+2. Make blindfold and non blindfold mode selectable.
+3. Resetting the game causes the clock to run too fast.
+   (Chess has the same bug.)
+   
+   
+   
+   
+   
+   
+-----------
+Chess bugs.
+1. Resetting the game causes the clock to run too fast.
+2. There is a typo if you promote a pawn to a bishop.   

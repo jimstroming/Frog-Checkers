@@ -9,8 +9,8 @@ class CheckersEngine(object):
         firstrow = ['WC','--','WC','--','WC','--','WC','--'] # WC is a white checker
         wpawnrow = ['--','WC','--','WC','--','WC','--','WC'] # WK is a white king
         blnkrow2 = ['WC','--','WC','--','WC','--','WC','--']
-        blnkrow3 = ['--','00','--','00','--','00','--','CR']
-        blnkrow4 = ['CR','--','00','--','00','--','00','--']
+        blnkrow3 = ['--','00','--','00','--','00','--','00']
+        blnkrow4 = ['00','--','00','--','00','--','00','--']
         blnkrow5 = ['--','BC','--','BC','--','BC','--','BC']
         bpawnrow = ['BC','--','BC','--','BC','--','BC','--'] # BK is a black king       
         lastrow  = ['--','BC','--','BC','--','BC','--','BC'] # BC is a black checker
@@ -28,10 +28,12 @@ class CheckersEngine(object):
 
         # define the car variables.   
         # I will write the game first without the car, then add the car.
-        self.topcarx    = 0   # the top car starts on the left border
+        self.topcarx    = random.randint(0,7)
         self.topcary    = 4 
-        self.bottomcarx = 6   # the bottom car stars on the right border
+        self.board[self.topcary][self.topcarx] = 'CR'
+        self.bottomcarx = random.randint(0,7)
         self.bottomcary = 3
+        self.board[self.bottomcary][self.bottomcarx] = 'CR'
         self.carcolortomove = 'W'        
 
     def printboard(self,board):
@@ -123,17 +125,17 @@ class CheckersEngine(object):
         
     def movethecar(self,board):
         """ Moves all the cars in the street on one side of the board.
-            White side cars move left.
-            Black side cars move right.
+            White side cars move right.
+            Black side cars move left.
             Each call it alternates which color moves
         """    
         if self.carcolortomove == 'W':
             y = 3
-            increment = -1
+            increment = 1
             self.carcolortomove = 'B'
         else:
             y = 4
-            increment = 1
+            increment = -1
             self.carcolortomove = 'W'
 
         newcars = []
