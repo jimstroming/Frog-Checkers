@@ -1,10 +1,2 @@
 2. Make blindfold and non blindfold mode selectable.
 5. Need to add move notation, or update the messages.   
-   
-   
-   
-   
-   
------------
-Chess bugs.
-1. Resetting the game causes the clock to run too fast.  Need to port the checkers fix. 

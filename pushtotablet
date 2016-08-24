@@ -1,0 +1,26 @@
+adb push android.txt /storage/sdcard0/kivy/roadkillfrog/.
+adb push frogcheckers.py /storage/sdcard0/kivy/roadkillfrog/.
+adb push roadkillfrog.kv /storage/sdcard0/kivy/roadkillfrog/.
+adb push main.py /storage/sdcard0/kivy/roadkillfrog/.
+
+adb push water.png /storage/sdcard0/kivy/roadkillfrog/.
+
+adb push lilypad.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push lilypad_black.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push lilypad_blackking.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push lilypad_white.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push lilypad_whiteking.png /storage/sdcard0/kivy/roadkillfrog/.
+
+adb push street_top.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push street_top_black.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push street_top_blackking.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push street_top_car.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push street_top_white.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push street_top_whiteking.png /storage/sdcard0/kivy/roadkillfrog/.
+
+adb push street_bottom.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push street_bottom_black.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push street_bottom_blackking.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push street_bottom_car.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push street_bottom_white.png /storage/sdcard0/kivy/roadkillfrog/.
+adb push street_bottom_whiteking.png /storage/sdcard0/kivy/roadkillfrog/.
